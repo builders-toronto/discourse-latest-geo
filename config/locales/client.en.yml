@@ -1,0 +1,8 @@
+en:
+  js:
+    filters:
+      latest:
+        title: "Feed"
+        help: "Topics ordered by location or recent activity."
+    navigation:
+      latest: "Feed"

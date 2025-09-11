@@ -1,0 +1,12 @@
+plugins:
+  rr_geo_enabled:
+    default: true
+    client: true
+
+  rr_set_profile_location_if_blank:
+    default: true
+    client: true
+
+  rr_geo_default_tokens:
+    default: "toronto,gta,ontario,canada"
+    client: true
