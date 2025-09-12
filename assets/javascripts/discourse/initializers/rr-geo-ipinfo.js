@@ -26,7 +26,7 @@ async function fetchIpinfo() {
 }
 
 export default {
-  name: "rr-geo-ipinfo",
+  name: "geo-ipinfo",
   initialize() {
     withPluginApi(async (api) => {
       const ss = api.container.lookup("service:site-settings");
