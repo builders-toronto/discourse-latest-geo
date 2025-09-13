@@ -1,10 +1,12 @@
 # frozen_string_literal: true
 # name: discourse-latest-geo
 # about: GEO prioritization if the user has not set it already + session IP exposure
-# version: 0.2.5
+# version: 0.2.3
 # authors: Renovation.Reviews
 
 enabled_site_setting :rr_geo_enabled
+
+register_asset "stylesheets/common/rr-geo-feed-label.scss"
 
 after_initialize do
   module ::RrGeo
@@ -82,6 +84,30 @@ after_initialize do
   end
 
   ::ApplicationController.prepend(::RrGeo::IpTracking)
+
+  require_dependency "current_user_serializer"
+
+  add_to_serializer(:current_user, :location) { object.user_profile&.location }
+
+  add_to_serializer(:current_user, :location_set) { object.user_profile&.location.present? }
+
+  add_to_serializer(:current_user, :rr_geo_tokens) do
+    ::RrGeo::Util.tokens_from_location(object.user_profile&.location)
+  end
+
+  module ::RrGeo
+    module CurrentUserSerializerExt
+      def include_location?
+        object.user_profile&.location.present?
+      end
+
+      def include_rr_geo_tokens?
+        SiteSetting.rr_geo_enabled && object.user_profile&.location.present?
+      end
+    end
+  end
+
+  ::CurrentUserSerializer.prepend(::RrGeo::CurrentUserSerializerExt)
 
   add_to_serializer(:current_user, :client_ip) { RequestStore.store[:rr_client_ip] }
   add_to_serializer(:current_user, :ip_changed) { !!RequestStore.store[:rr_ip_changed] }

@@ -6,3 +6,9 @@ en:
         help: "Topics ordered by location or recent activity."
     navigation:
       latest: "Feed"
+    rr_geo:
+      feed_label:
+        personalized: "Personalized for %{location}"
+        guest_prefix: "You’re seeing the global feed."
+        login_link: "Log in"
+        guest_suffix: "to see a local public feed."
