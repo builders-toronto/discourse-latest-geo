@@ -1,0 +1,15 @@
+.rr-geo-feed-label {
+  margin: 0 0 0.5rem 0;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: var(--font-down-1);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  &.is-guest {
+    a {
+      text-decoration: underline;
+    }
+  }
+}
